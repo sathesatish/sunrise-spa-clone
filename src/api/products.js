@@ -53,7 +53,7 @@ const products = {
   get: withToken(
     (
       [query, routeQuery, locale, totalFacets = []],
-      { access_token: accessToken },
+      accessToken,
     ) => {
       query = setCategory(query);
       return Promise.all([
