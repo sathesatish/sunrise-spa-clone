@@ -101,6 +101,7 @@ const getProducts = (component) => {
         {
           category,
           ...searchText,
+          staged: route.query.preview,
         },
         route.query,
         loc,
