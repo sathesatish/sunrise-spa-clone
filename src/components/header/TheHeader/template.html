@@ -37,6 +37,9 @@
                 {{ $t("help") }}
               </a>
             </li>
+            <li class="preview-mode" v-if="isPreview">
+              [ Preview Mode ]
+            </li>
             <MiniCart />
             <LoginButton />
             <LocationSelector />

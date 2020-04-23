@@ -92,6 +92,7 @@ const getProducts = (component) => {
           priceCustomerGroup: customerGroup,
           ...sort,
           ...searchText,
+          staged: route.query.preview,
         },
         route.query,
         loc,
