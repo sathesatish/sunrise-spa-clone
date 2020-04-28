@@ -41,7 +41,7 @@ export default {
           product(sku: $sku) {
             id
             masterData {
-              current {
+              current @skip(if: $preview) {
                 variant(sku: $sku) {
                   attributes {
                     ...on mainProductType {
@@ -77,7 +77,7 @@ export default {
                 }
               }
 
-              staged {
+              staged @include(if: $preview) {
                 variant(sku: $sku) {
                   attributes {
                     ...on mainProductType {
