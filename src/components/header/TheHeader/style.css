@@ -1,3 +1,6 @@
 .preview-mode {
     font-weight: bold;
 }
+.navbar.navbar-fixed-top {
+    z-index: 90;
+}
