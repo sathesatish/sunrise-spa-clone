@@ -9,7 +9,7 @@ const createData = ({ results }, loc) => results.reduce(
     return result;
   }, {},
 );
-const product = (p, loc) => `
+const product = (p, loc, price) => `
 <li>
   <div>
     <div style="float:left;padding-right: 10px;">
@@ -20,7 +20,7 @@ const product = (p, loc) => `
     </div>
     <div style="float:left">
       <div>${p.name[loc]}</div>
-      <div>price</div>
+      <div>${price}</div>
     </div>
   </div>
   <div style="clear:both"></div>
@@ -76,6 +76,7 @@ export default {
               page: 1,
               pageSize: 5,
               [`text.${loc}`]: request.term,
+              // fuzzy: true,
             },
             {},
             loc,
@@ -89,7 +90,18 @@ export default {
         }
       },
     }).autocomplete('instance')._renderItem = function renderItem(ul, item) {
-      return $(product(data[item.label], locale(component))).appendTo(ul);
+      let price = '';
+      const discount = data[item.label]?.masterVariant?.price?.discounted?.value;
+      if (discount) {
+        const { centAmount, fractionDigits } = discount;
+        const amount = centAmount / (10 ** fractionDigits);
+        price = component.$n(amount, 'currency', component.$store.state.country);
+      } else {
+        const { centAmount, fractionDigits } = data[item.label]?.masterVariant?.price?.value;
+        const amount = centAmount / (10 ** fractionDigits);
+        price = component.$n(amount, 'currency', component.$store.state.country);
+      }
+      return $(product(data[item.label], locale(component), price)).appendTo(ul);
     };
   },
   beforeDestroy() {
