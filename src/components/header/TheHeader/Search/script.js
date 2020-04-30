@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { products } from '../../../../api';
 import { locale } from '../../../common/shared';
 
@@ -8,6 +9,23 @@ const createData = ({ results }, loc) => results.reduce(
     return result;
   }, {},
 );
+const product = (p, loc) => `
+<li>
+  <div>
+    <div style="float:left">
+      <img 
+        style="width:50px"
+        src="${p?.masterVariant?.images[0]?.url}" 
+      />
+    </div>
+    <div style="float:left">
+      <div>${p.name[loc]}</div>
+      <div>price</div>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</li>
+`;
 export default {
   data() {
     return {
@@ -61,9 +79,10 @@ export default {
             },
           );
         }
-        // response(['a', 'b', 'flip']);
       },
-    });
+    }).autocomplete('instance')._renderItem = function renderItem(ul, item) {
+      return $(product(data[item.label], locale(component))).appendTo(ul);
+    };
   },
   beforeDestroy() {
     $(this.$refs.search).autocomplete('destroy');

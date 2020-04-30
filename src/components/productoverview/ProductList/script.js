@@ -55,9 +55,17 @@ const removeHiddenFacetFromQuery = (facets, component) => {
 };
 const last = onlyLastRequestedPromise('products');
 const getProducts = (component) => {
-  const category = component.$route.params.categorySlug === 'all'
-    ? undefined
-    : component.categories?.results[0]?.id;
+  const {
+    category,
+    currency,
+    country,
+    customerGroup,
+    priceChannel,
+    loc,
+    searchText,
+    sort,
+    priceFilter,
+  } = products.paramsFromComponent(component);
   if (
     !category
     && component.$route.params.categorySlug !== 'all'
@@ -67,20 +75,6 @@ const getProducts = (component) => {
   component.loadingProducts = true;
   component.loadingFacets = true;
   const route = component.$route;
-  const {
-    currency,
-    country,
-    customerGroup,
-    channel: priceChannel,
-  } = component.$store.state;
-  const loc = locale(component);
-  const sortValue = route.query.sort;
-  const searchText = route.query.q
-    ? { [`text.${loc}`]: route.query.q }
-    : {};
-  const sort = sortValue
-    ? { sort: `lastModifiedAt ${sortValue === 'newest' ? 'desc' : 'asc'}` }
-    : {};
   last(
     Promise.all([
       products.get([
@@ -94,6 +88,7 @@ const getProducts = (component) => {
           priceCustomerGroup: customerGroup,
           ...sort,
           ...searchText,
+          ...priceFilter,
           staged: route.query.preview,
         },
         route.query,
@@ -107,6 +102,7 @@ const getProducts = (component) => {
           priceChannel: component.allChannels ? null : priceChannel,
           priceCustomerGroup: customerGroup,
           ...searchText,
+          ...priceFilter,
           staged: route.query.preview,
         },
         route.query,
