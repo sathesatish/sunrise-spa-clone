@@ -12,7 +12,7 @@ const createData = ({ results }, loc) => results.reduce(
 const product = (p, loc) => `
 <li>
   <div>
-    <div style="float:left">
+    <div style="float:left;padding-right: 10px;">
       <img 
         style="width:50px"
         src="${p?.masterVariant?.images[0]?.url}" 
@@ -62,9 +62,17 @@ export default {
       },
       source: (request, response) => {
         if (request?.term?.length > 3) {
-          const loc = locale(component);
+          const {
+            currency,
+            country,
+            customerGroup,
+            loc,
+          } = products.paramsFromComponent(component);
           products.get([
             {
+              priceCurrency: currency,
+              priceCountry: country,
+              priceCustomerGroup: customerGroup,
               page: 1,
               pageSize: 5,
               [`text.${loc}`]: request.term,
