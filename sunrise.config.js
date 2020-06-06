@@ -38,12 +38,12 @@ export default {
           currency: 'USD',
         },
       },
-    },
-    HI: {
-      currency: {
-        style: 'currency',
-        currency: 'INR',
-        currencyDisplay: 'symbol',
+      HI: {
+        currency: {
+          style: 'currency',
+          currency: 'INR',
+          currencyDisplay: 'symbol',
+        },
       },
     },
     datetime: {
