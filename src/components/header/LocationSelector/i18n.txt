@@ -6,3 +6,7 @@ de:
   location: "Ort"
   language: "Sprache"
   country: "Land"
+hi:
+  location: "Jagah"
+  language: "Hindi"
+  country: "Desh"
