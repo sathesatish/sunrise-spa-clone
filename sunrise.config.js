@@ -39,6 +39,13 @@ export default {
         },
       },
     },
+    HI: {
+      currency: {
+        style: 'currency',
+        currency: 'INR',
+        currencyDisplay: 'symbol',
+      },
+    },
     datetime: {
       US: {
         short: {
@@ -48,6 +55,13 @@ export default {
         },
       },
       DE: {
+        short: {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        },
+      },
+      HI: {
         short: {
           year: 'numeric',
           month: 'short',
