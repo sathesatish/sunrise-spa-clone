@@ -16,10 +16,12 @@ export default {
   languages: {
     en: 'English',
     de: 'Deutsch',
+    hi: 'Hindi',
   },
   countries: {
     DE: 'Deutschland',
     US: 'United States',
+    IN: 'India',
   },
   formats: {
     number: {
